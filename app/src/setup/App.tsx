@@ -1,7 +1,7 @@
 import type { DNDPlugin } from '@formkit/drag-and-drop';
 import { addEvents, animations, parents } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import React, { useEffect } from 'react';
+import { useEffect } from 'react';
 import Actions from '../Components/Actions';
 import Banner from '../Components/Banner';
 import Card from '../Components/Card';
@@ -14,40 +14,17 @@ import InputText from '../Components/InputText';
 import Mode from '../Components/Mode';
 import RadioInput from '../Components/RadioInput';
 import Todo from '../Components/Todo';
+import { useMode } from '../hooks/useMode';
+import { useTodos } from '../hooks/useTodos';
 import { Todo as ITodo, Status } from '../interface';
-import { useModeStore } from '../stores/ModeStore';
-import { useTodoStore } from '../stores/TodoStore';
 import './App.css';
 
-function App() {
-  const mode = useModeStore((state) => state.mode);
-  const toggleMode = useModeStore((state) => state.toggleMode);
+function App() { 
 
-  const handleClick = () => {
-    const newMode = mode === 'light' ? 'dark' : 'light';
-    toggleMode(newMode);
-  };
+  const { mode, handleMode } = useMode()
+  const { handleSubmit , todos, updateTodos} = useTodos() 
 
-  const addTodo = useTodoStore((state) => state.addTodo);
-  const todos = useTodoStore((state) => state.todos);
-  const updateTodos = useTodoStore(state => state.updateTodos)
-  
-  const handleSubmit = (e: React.SyntheticEvent) => {
-    e.preventDefault();
-
-    const isChecked = (
-      document.getElementById('newCheckTodo') as HTMLInputElement
-    ).checked;
-    const NewTodo = (document.getElementById('NewTodo') as HTMLInputElement)
-      .value;
-
-    const status = isChecked ? 'complete' : 'active';
-    addTodo({ todo: NewTodo, status: status });
-
-    (document.getElementById('NewTodo') as HTMLInputElement).value = '';
-  };
-
-  // DRAG AND DROP
+  // * DRAG AND DROP PLUGIN
   const dragHandlerPlugin: DNDPlugin = (parent) => {
     const parentData = parents.get(parent);
     if (!parentData) return;
@@ -86,9 +63,13 @@ function App() {
       tearDownNodeRemap() {},
     };
   };
+
+  // * INIT DRAG AND DROP
   const [parent, list, setList] = useDragAndDrop<HTMLUListElement, ITodo>(todos, {
     plugins: [animations(), dragHandlerPlugin],
   });
+
+
   // * This update the drag and drop list
   useEffect(() => {
     setList(todos);
@@ -107,7 +88,7 @@ function App() {
               >
                 TODO
               </h1>
-              <button className='px-4 py-2' onClick={handleClick}>
+              <button className='px-4 py-2' onClick={handleMode}>
                 {mode == 'light' ? (
                   <MoonIcon className='animate-spin animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
                 ) : (
