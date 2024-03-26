@@ -14,13 +14,18 @@ export const useTodoStore = create<TodoState>()(
         todos: [],
         addTodo: ({ todo, status }: { todo: string; status: Status }) => {
           const { todos } = get();
+
+          const clone = structuredClone(todos);
+
           const newTodo: Todo = {
             id: self.crypto.randomUUID() ,
             todo: todo,
             status: status,
           };
-          todos.push(newTodo);
-          set({ todos });
+
+          clone.push(newTodo);
+
+          set({ todos: clone });
         },
       };
     },
