@@ -7,6 +7,7 @@ interface TodoState {
   addTodo: ({ todo, status }: { todo: string; status: Status }) => void;
   updateTodos: ({ todos }: { todos: Todo[] }) => void;
   updateStatus:({todo}:{todo:Todo})=>void
+  deleteTodo: (id:string) => void
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -42,9 +43,13 @@ export const useTodoStore = create<TodoState>()(
             clone[index].status = todo.status === 'active' ? 'complete' : 'active';       
           }
 
-          set({todos:clone})
-          
-        }
+          set({todos:clone})          
+        },
+        deleteTodo:(id:string) => {
+          const { todos } = get()
+          const newTodos = todos.filter(todo => todo.id !== id)
+          set({todos:newTodos})
+        },
       };
     },
     { name: 'FRONTEND::MENTOR::TODO:LIST' }

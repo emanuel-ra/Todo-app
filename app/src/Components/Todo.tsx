@@ -10,10 +10,14 @@ interface Props {
 function Todo(props:Props) {
   const { id, todo, status } = props.todo;
   const updateStatus = useTodoStore(state => state.updateStatus)
-
+  const deleteTodo = useTodoStore(state => state.deleteTodo)
   const handleBehavior = () => {
     updateStatus({ todo: props.todo });
   };
+
+  const handleDelete = () => {
+    deleteTodo(id)
+  }
 
   const isChecked = status==='active' ? false:true
 
@@ -34,7 +38,10 @@ function Todo(props:Props) {
         <RadioInput callback={handleBehavior} isChecked={isChecked} />
         <span className={`${isChecked ? 'line-through' : ''}`}>{todo}</span>
       </div>
-      <button className='hidden group-hover:flex px-4 py-2  items-center'>
+      <button
+        className='hidden group-hover:flex px-4 py-2 items-center'
+        onClick={handleDelete}
+      >
         <CrossIcon />
       </button>
     </li>
