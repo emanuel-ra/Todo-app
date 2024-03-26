@@ -107,8 +107,12 @@ function App() {
               >
                 TODO
               </h1>
-              <button onClick={handleClick}>
-                {mode == 'light' ? <MoonIcon /> : <SunIcon />}
+              <button className='px-4 py-2' onClick={handleClick}>
+                {mode == 'light' ? (
+                  <MoonIcon className='animate-spin animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
+                ) : (
+                  <SunIcon className='animate-spin animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
+                )}
               </button>
             </div>
 
@@ -126,13 +130,18 @@ function App() {
               ))}
               <CardFooter>
                 <Counter />
-                <Filters />
+                <Filters className='hidden md:flex ' />
                 <Actions />
               </CardFooter>
             </Card>
 
-            <div className='text-sm text-very-dark-grayish-blue'>Drag and drop to reorder list</div>
+            <div className='w-3/4 lg:w-1/2 flex justify-center bg-white dark:bg-secondary rounded shadow-lg md:hidden mb-5 py-2 '>
+              <Filters className='flex ' />
+            </div>
 
+            <div className='text-sm text-very-dark-grayish-blue'>
+              Drag and drop to reorder list
+            </div>
           </div>
         </main>
       </div>

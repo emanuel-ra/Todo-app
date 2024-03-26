@@ -11,7 +11,7 @@ function Card(props:Props) {
     <ul
       id={id}
       ref={reference}
-      className='w-3/4 lg:w-1/2 bg-white dark:bg-secondary rounded shadow-lg text-lg mb-10'
+      className='w-3/4 lg:w-1/2 bg-white dark:bg-secondary rounded shadow-lg text-lg mb-5'
     >
       {children}
     </ul>
