@@ -2,8 +2,12 @@ import type { DNDPlugin } from '@formkit/drag-and-drop';
 import { addEvents, animations, parents } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import React, { useEffect } from 'react';
+import Actions from '../Components/Actions';
 import Banner from '../Components/Banner';
 import Card from '../Components/Card';
+import CardFooter from '../Components/CardFooter';
+import Counter from '../Components/Counter';
+import Filters from '../Components/Filters';
 import MoonIcon from '../Components/Icons/MoonIcon';
 import SunIcon from '../Components/Icons/SunIcon';
 import InputText from '../Components/InputText';
@@ -120,7 +124,14 @@ function App() {
               {list?.map((todo) => (
                 <Todo key={todo.id} todo={todo} />
               ))}
+              <CardFooter>
+                <Counter />
+                <Filters />
+                <Actions />
+              </CardFooter>
             </Card>
+
+            <div className='text-sm text-very-dark-grayish-blue'>Drag and drop to reorder list</div>
 
           </div>
         </main>
