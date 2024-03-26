@@ -1,11 +1,11 @@
 
-import { Todo } from "../interface";
+import { Todo as ITodo } from "../interface";
 import { useTodoStore } from "../stores/TodoStore";
 import CrossIcon from "./Icons/CrossIcon";
 import RadioInput from "./RadioInput";
 
 interface Props {
-  todo: Todo;
+  todo: ITodo;
 }
 function Todo(props:Props) {
   const { id, todo, status } = props.todo;
