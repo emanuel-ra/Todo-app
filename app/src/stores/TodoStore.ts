@@ -6,6 +6,7 @@ interface TodoState {
   todos: Todo[];
   addTodo: ({ todo, status }: { todo: string; status: Status }) => void;
   updateTodos: ({ todos }: { todos: Todo[] }) => void;
+  updateStatus:({todo}:{todo:Todo})=>void
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -30,6 +31,19 @@ export const useTodoStore = create<TodoState>()(
         },
         updateTodos: ({ todos }: { todos: Todo[] }) => {
           set({todos})
+        },
+        updateStatus:({todo}:{todo:Todo})=>{
+  
+          const { todos } = get()
+          const index = todos.findIndex(item => item.id === todo.id)
+          const clone = structuredClone(todos);
+
+          if (index) {
+            clone[index].status = todo.status === 'active' ? 'complete' : 'active';       
+          }
+
+          set({todos:clone})
+          
         }
       };
     },

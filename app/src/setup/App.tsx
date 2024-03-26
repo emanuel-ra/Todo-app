@@ -27,7 +27,7 @@ function App() {
   const addTodo = useTodoStore((state) => state.addTodo);
   const todos = useTodoStore((state) => state.todos);
   const updateTodos = useTodoStore(state => state.updateTodos)
-
+  
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -86,7 +86,9 @@ function App() {
     plugins: [animations(), dragHandlerPlugin],
   });
   // * This update the drag and drop list
-  useEffect(() => setList(todos));
+  useEffect(() => {
+    setList(todos);
+  },[todos]);
   
   return (
     <Mode>
@@ -119,6 +121,7 @@ function App() {
                 <Todo key={todo.id} todo={todo} />
               ))}
             </Card>
+
           </div>
         </main>
       </div>

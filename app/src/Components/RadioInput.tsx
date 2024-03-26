@@ -4,14 +4,17 @@ import CheckIcon from "./Icons/CheckIcon";
 
 interface Props{
     id?: string
+    callback?: ()=>void
+    isChecked?:boolean
 }
 function RadioInput(props:Props) {
-    const { id } = props
-    const [check,setCheck] = useState(false)
+    const { id, callback = () => {}, isChecked = false} = props;
+    const [check, setCheck] = useState(isChecked);
 
-    const handle = ()=>{
-        setCheck(!check)
-    }
+    const handle = () => {
+      setCheck(!check);
+      callback();
+    };
   return (
     <div className='px-4 py-4 group'>
       <label
@@ -26,7 +29,7 @@ function RadioInput(props:Props) {
         </span>
         <input
           type='checkbox'
-          defaultChecked={false}
+          defaultChecked={check}
           className='sr-only peer'
           onChange={handle}
           id={id}

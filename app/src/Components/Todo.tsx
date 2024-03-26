@@ -1,5 +1,6 @@
 
 import { Todo } from "../interface";
+import { useTodoStore } from "../stores/TodoStore";
 import CrossIcon from "./Icons/CrossIcon";
 import RadioInput from "./RadioInput";
 
@@ -8,16 +9,26 @@ interface Props {
 }
 function Todo(props:Props) {
   const { id, todo, status } = props.todo;
+  const updateStatus = useTodoStore(state => state.updateStatus)
+
+  const handleBehavior = () => {
+    updateStatus({ todo: props.todo });
+  };
+
+  const isChecked = status==='active' ? false:true
+
   return (
     <li
-      className='flex border-b justify-between px-4 group cursor-pointer text-very-dark-grayish-blue todoItem'
+      className={`flex border-b justify-between px-4 group cursor-pointer  todoItem
+      ${isChecked ? 'text-light-grayish-blue' : 'text-very-dark-grayish-blue'}
+      `}
       data-id={id}
       data-todo={todo}
       data-status={status}
     >
       <div className='flex items-center'>
-        <RadioInput />
-        {todo}
+        <RadioInput callback={handleBehavior} isChecked={isChecked} />
+        <span className={`${isChecked ? 'line-through' : ''}`}>{todo}</span>
       </div>
       <button className='hidden group-hover:flex px-4 py-2  items-center'>
         <CrossIcon />
