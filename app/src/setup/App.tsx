@@ -1,3 +1,6 @@
+import type { DNDPlugin } from '@formkit/drag-and-drop';
+import { addEvents, animations, parents } from '@formkit/drag-and-drop';
+import { useDragAndDrop } from '@formkit/drag-and-drop/react';
 import React from 'react';
 import Banner from '../Components/Banner';
 import Card from '../Components/Card';
@@ -7,23 +10,25 @@ import InputText from '../Components/InputText';
 import Mode from '../Components/Mode';
 import RadioInput from '../Components/RadioInput';
 import Todo from '../Components/Todo';
+import { Todo as ITodo, Status } from '../interface';
 import { useModeStore } from '../stores/ModeStore';
 import { useTodoStore } from '../stores/TodoStore';
 import './App.css';
 
 function App() {
-  const mode = useModeStore(state => state.mode)
+  const mode = useModeStore((state) => state.mode);
   const toggleMode = useModeStore((state) => state.toggleMode);
- 
+
   const handleClick = () => {
     const newMode = mode === 'light' ? 'dark' : 'light';
     toggleMode(newMode);
   };
 
-  const addTodo = useTodoStore(state => state.addTodo)
-  const todos = useTodoStore(state => state.todos)
+  const addTodo = useTodoStore((state) => state.addTodo);
+  const todos = useTodoStore((state) => state.todos);
+  const updateTodos = useTodoStore(state => state.updateTodos)
 
-  const handleSubmit = (e:React.SyntheticEvent)=>{
+  const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
     const isChecked = (
@@ -32,11 +37,54 @@ function App() {
     const NewTodo = (document.getElementById('NewTodo') as HTMLInputElement)
       .value;
 
-      const status = isChecked ? 'complete':'active'
-      addTodo({ todo: NewTodo, status: status });
+    const status = isChecked ? 'complete' : 'active';
+    addTodo({ todo: NewTodo, status: status });
 
-      (document.getElementById('NewTodo') as HTMLInputElement).value="";
-  }
+    (document.getElementById('NewTodo') as HTMLInputElement).value = '';
+  };
+
+  // DRAG AND DROP
+  const dragHandlerPlugin: DNDPlugin = (parent) => {
+    const parentData = parents.get(parent);
+    if (!parentData) return;
+
+    function dragend() {     
+      const items = (document.getElementsByClassName('todoItem') as HTMLCollectionOf<HTMLLIElement>)
+      const todos = Array.from(items).map(item => item)
+      const NewTodos: ITodo[] = [];
+      todos.map(li => {
+        
+        const TODO: ITodo = {
+          id: li.dataset.id as string,
+          todo: li.dataset.todo as string,
+          status: li.dataset.status as Status ,
+        };
+        NewTodos.push(TODO);        
+      })
+
+      updateTodos({ todos: NewTodos });
+    }
+
+    return {
+      setup() {},
+      teardown() {},
+      setupNode(data) {
+        data.nodeData.abortControllers.customPlugin = addEvents(data.node, {
+          dragend: dragend,
+        });
+      },
+      tearDownNode(data) {
+        if (data.nodeData?.abortControllers?.customPlugin) {
+          data.nodeData?.abortControllers?.customPlugin.abort();
+        }
+      },
+      setupNodeRemap() {},
+      tearDownNodeRemap() {},
+    };
+  };
+  const [parent, list] = useDragAndDrop<HTMLUListElement, ITodo>(todos, {
+    plugins: [animations(), dragHandlerPlugin],
+  });
 
   return (
     <Mode>
@@ -64,7 +112,11 @@ function App() {
               <InputText id='NewTodo' placeholder='Create new TODO...' />
             </form>
 
-            <Card>{todos?.map(todo => (<Todo key={todo.id} todo={todo} />))}</Card>
+            <Card reference={parent}>
+              {list?.map((todo) => (
+                <Todo key={todo.id} todo={todo} />
+              ))}
+            </Card>
           </div>
         </main>
       </div>
@@ -72,4 +124,4 @@ function App() {
   );
 }
 
-export default App
+export default App;

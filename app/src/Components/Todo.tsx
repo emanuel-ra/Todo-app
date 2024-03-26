@@ -7,9 +7,9 @@ interface Props {
   todo: Todo;
 }
 function Todo(props:Props) {
-  const { todo } = props.todo
+  const { id, todo, status } = props.todo;
   return (
-    <div className='flex border-b justify-between px-4 group cursor-pointer'>
+    <li className='flex border-b justify-between px-4 group cursor-pointer todoItem' data-id={id} data-todo={todo} data-status={status} >
       <div className='flex items-center'>
         <RadioInput />
         {todo}
@@ -17,7 +17,7 @@ function Todo(props:Props) {
       <button className='hidden group-hover:flex px-4 py-2  items-center'>
         <CrossIcon />
       </button>
-    </div>
+    </li>
   );
 }
 

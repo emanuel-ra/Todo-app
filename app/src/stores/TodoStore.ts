@@ -5,6 +5,7 @@ import { Status, Todo } from '../interface';
 interface TodoState {
   todos: Todo[];
   addTodo: ({ todo, status }: { todo: string; status: Status }) => void;
+  updateTodos: ({ todos }: { todos: Todo[] }) => void;
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -27,6 +28,9 @@ export const useTodoStore = create<TodoState>()(
 
           set({ todos: clone });
         },
+        updateTodos: ({ todos }: { todos: Todo[] }) => {
+          set({todos})
+        }
       };
     },
     { name: 'FRONTEND::MENTOR::TODO:LIST' }
