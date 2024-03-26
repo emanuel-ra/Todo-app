@@ -20,7 +20,11 @@ function Todo(props:Props) {
   return (
     <li
       className={`flex border-b justify-between px-4 group cursor-pointer  todoItem
-      ${isChecked ? 'text-light-grayish-blue' : 'text-very-dark-grayish-blue'}
+      ${
+        isChecked
+          ? 'text-light-grayish-blue dark:text-very-dark-grayish-blue'
+          : 'text-very-dark-grayish-blue dark:text-light-grayish-blue'
+      }
       `}
       data-id={id}
       data-todo={todo}
