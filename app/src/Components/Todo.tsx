@@ -9,7 +9,12 @@ interface Props {
 function Todo(props:Props) {
   const { id, todo, status } = props.todo;
   return (
-    <li className='flex border-b justify-between px-4 group cursor-pointer todoItem' data-id={id} data-todo={todo} data-status={status} >
+    <li
+      className='flex border-b justify-between px-4 group cursor-pointer text-very-dark-grayish-blue todoItem'
+      data-id={id}
+      data-todo={todo}
+      data-status={status}
+    >
       <div className='flex items-center'>
         <RadioInput />
         {todo}

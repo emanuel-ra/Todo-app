@@ -1,7 +1,7 @@
 import type { DNDPlugin } from '@formkit/drag-and-drop';
 import { addEvents, animations, parents } from '@formkit/drag-and-drop';
 import { useDragAndDrop } from '@formkit/drag-and-drop/react';
-import React from 'react';
+import React, { useEffect } from 'react';
 import Banner from '../Components/Banner';
 import Card from '../Components/Card';
 import MoonIcon from '../Components/Icons/MoonIcon';
@@ -82,10 +82,12 @@ function App() {
       tearDownNodeRemap() {},
     };
   };
-  const [parent, list] = useDragAndDrop<HTMLUListElement, ITodo>(todos, {
+  const [parent, list, setList] = useDragAndDrop<HTMLUListElement, ITodo>(todos, {
     plugins: [animations(), dragHandlerPlugin],
   });
-
+  // * This update the drag and drop list
+  useEffect(() => setList(todos));
+  
   return (
     <Mode>
       <div className='wrapper'>
@@ -94,7 +96,7 @@ function App() {
           <div className='w-full absolute flex flex-col items-center justify-center mt-10 md:mt-16 lg:mt-28 '>
             <div className='w-3/4 lg:w-1/2 flex justify-between'>
               <h1
-                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.8em]
+                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em]
 '
               >
                 TODO
@@ -106,10 +108,10 @@ function App() {
 
             <form
               onSubmit={handleSubmit}
-              className='w-3/4 lg:w-1/2 h-11 flex items-center p-0 shadow-lg  bg-white dark:bg-secondary rounded mt-10 mb-5'
+              className='w-3/4 lg:w-1/2 h-12 flex items-center p-0 shadow-lg  bg-white dark:bg-secondary rounded mt-10 mb-5 px-4 text-lg'
             >
               <RadioInput id='newCheckTodo' />
-              <InputText id='NewTodo' placeholder='Create new TODO...' />
+              <InputText id='NewTodo' placeholder='Create a new todo...' />
             </form>
 
             <Card reference={parent}>

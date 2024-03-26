@@ -6,11 +6,11 @@ interface Props {
 function InputText(props:Props) {
     const {id,placeholder} = props
     return (
-        <div className='h-full w-full px-2 '>
+        <div className='h-full w-full '>
             <input
                 type='text'
                 id={id}
-                className='h-full w-full px-2 bg-transparent outline-none ring-transparent '
+                className='h-full w-full bg-transparent outline-none ring-transparent text-dark-grayish-blue tracking-wide'
                 placeholder={placeholder}
             />
         </div>
