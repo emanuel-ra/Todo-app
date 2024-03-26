@@ -34,15 +34,13 @@ export const useTodoStore = create<TodoState>()(
           set({todos})
         },
         updateStatus:({todo}:{todo:Todo})=>{
-  
+          
           const { todos } = get()
           const index = todos.findIndex(item => item.id === todo.id)
           const clone = structuredClone(todos);
 
-          if (index) {
-            clone[index].status = todo.status === 'active' ? 'complete' : 'active';       
-          }
-
+          clone[index].status = todo.status === 'active' ? 'complete' : 'active';       
+          
           set({todos:clone})          
         },
         deleteTodo:(id:string) => {

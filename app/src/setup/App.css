@@ -4,7 +4,7 @@
 
 @layer components{   
     .wrapper{
-        @apply relative w-screen h-dvh flex justify-center font-josefin-sans dark:bg-primary
+        @apply relative w-screen h-dvh flex justify-center font-josefin-sans transition duration-500 ease-in-out dark:bg-primary
     }
     main{
         @apply relative w-[375px] md:w-[768px] lg:w-[1440px] h-dvh 
