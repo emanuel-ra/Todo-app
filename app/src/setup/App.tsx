@@ -8,6 +8,7 @@ import Card from "../Components/Card";
 import CardFooter from "../Components/CardFooter";
 import Counter from "../Components/Counter";
 import Filters from "../Components/Filters";
+import Footer from "../Components/Footer";
 import MoonIcon from "../Components/Icons/MoonIcon";
 import SunIcon from "../Components/Icons/SunIcon";
 import InputText from "../Components/InputText";
@@ -16,10 +17,9 @@ import RadioInput from "../Components/RadioInput";
 import Todo from "../Components/Todo";
 import { useMode } from "../hooks/useMode";
 import { useTodos } from "../hooks/useTodos";
-import { Todo as ITodo, Status } from "../interface";
 import type { Filters as IFilters } from "../interface";
+import { Todo as ITodo, Status } from "../interface";
 import "./App.css";
-import Footer from "../Components/Footer";
 
 function App() {
   const [filter, setFilter] = useState<IFilters>("all");
@@ -95,32 +95,32 @@ function App() {
   }, [filter]);
   return (
     <Mode>
-      <div className="wrapper">
-        <main className="relative flex flex-col">
+      <div className='wrapper'>
+        <main className='relative flex flex-col'>
           <Banner />
-          <div className="w-full absolute flex flex-col items-center justify-center mt-10 md:mt-16 lg:mt-28 ">
-            <div className="w-3/4 lg:w-1/2 flex justify-between">
+          <div className='w-full absolute flex flex-col items-center justify-center mt-10 md:mt-16 lg:mt-28 '>
+            <div className='w-3/4 lg:w-1/2 flex justify-between'>
               <h1
-                className="text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em]
-"
+                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em]
+'
               >
                 TODO
               </h1>
-              <button className="px-4 py-2" onClick={handleMode}>
-                {mode == "light" ? (
-                  <MoonIcon className="animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards" />
+              <button className='px-4 py-2' onClick={handleMode}>
+                {mode == 'light' ? (
+                  <MoonIcon className='animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
                 ) : (
-                  <SunIcon className="animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards" />
+                  <SunIcon className='animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
                 )}
               </button>
             </div>
 
             <form
               onSubmit={handleSubmit}
-              className="w-3/4 lg:w-1/2 h-12 flex items-center p-0 shadow-lg  bg-white dark:bg-secondary rounded mt-10 mb-5 px-4 text-lg"
+              className='w-3/4 lg:w-1/2 h-12 flex items-center p-0 shadow-lg  bg-white dark:bg-secondary rounded mt-10 mb-5 px-4 text-lg'
             >
-              <RadioInput id="newCheckTodo" />
-              <InputText id="NewTodo" placeholder="Create a new todo..." />
+              <RadioInput id='newCheckTodo' />
+              <InputText id='NewTodo' placeholder='Create a new todo...' />
             </form>
 
             <Card reference={parent}>
@@ -133,26 +133,26 @@ function App() {
                 <Filters
                   callback={handleFilter}
                   filter={filter}
-                  className="hidden md:flex "
+                  className='hidden md:flex '
                 />
                 <Actions />
               </CardFooter>
             </Card>
 
-            <div className="w-3/4 lg:w-1/2 flex justify-center bg-white dark:bg-secondary rounded shadow-lg md:hidden mb-5 py-2 ">
+            <div className='w-3/4 lg:w-1/2 flex justify-center bg-white dark:bg-secondary rounded shadow-lg md:hidden mb-5 py-2'>
               <Filters
                 callback={handleFilter}
                 filter={filter}
-                className="flex "
+                className='flex '
               />
             </div>
 
-            <div className="text-sm text-very-dark-grayish-blue dark:dark:text-light-grayish-blue">
+            <div className='text-sm text-very-dark-grayish-blue dark:dark:text-light-grayish-blue mb-10'>
               Drag and drop to reorder list
             </div>
+            <Footer />
           </div>
         </main>
-        <Footer />
       </div>
     </Mode>
   );
