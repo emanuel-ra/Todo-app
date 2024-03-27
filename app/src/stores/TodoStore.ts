@@ -8,6 +8,7 @@ interface TodoState {
   updateTodos: ({ todos }: { todos: Todo[] }) => void;
   updateStatus:({todo}:{todo:Todo})=>void
   deleteTodo: (id:string) => void
+  clearComplete: ()=>void
 }
 
 export const useTodoStore = create<TodoState>()(
@@ -21,7 +22,7 @@ export const useTodoStore = create<TodoState>()(
           const clone = structuredClone(todos);
 
           const newTodo: Todo = {
-            id: self.crypto.randomUUID() ,
+            id: self.crypto.randomUUID(),
             todo: todo,
             status: status,
           };
@@ -31,23 +32,28 @@ export const useTodoStore = create<TodoState>()(
           set({ todos: clone });
         },
         updateTodos: ({ todos }: { todos: Todo[] }) => {
-          set({todos})
+          set({ todos });
         },
-        updateStatus:({todo}:{todo:Todo})=>{
-          
-          const { todos } = get()
-          const index = todos.findIndex(item => item.id === todo.id)
+        updateStatus: ({ todo }: { todo: Todo }) => {
+          const { todos } = get();
+          const index = todos.findIndex((item) => item.id === todo.id);
           const clone = structuredClone(todos);
 
-          clone[index].status = todo.status === 'active' ? 'complete' : 'active';       
-          
-          set({todos:clone})          
+          clone[index].status =
+            todo.status === 'active' ? 'complete' : 'active';
+
+          set({ todos: clone });
         },
-        deleteTodo:(id:string) => {
+        deleteTodo: (id: string) => {
+          const { todos } = get();
+          const newTodos = todos.filter((todo) => todo.id !== id);
+          set({ todos: newTodos });
+        },
+        clearComplete:()=>{
           const { todos } = get()
-          const newTodos = todos.filter(todo => todo.id !== id)
+          const newTodos = todos.filter(todo => todo.status === 'active')
           set({todos:newTodos})
-        },
+        }
       };
     },
     { name: 'FRONTEND::MENTOR::TODO:LIST' }

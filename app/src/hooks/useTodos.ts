@@ -4,7 +4,8 @@ export const useTodos = () => {
   const addTodo = useTodoStore((state) => state.addTodo);
   const todos = useTodoStore((state) => state.todos);
   const updateTodos = useTodoStore((state) => state.updateTodos);
-
+    const clearComplete = useTodoStore((state) => state.clearComplete);
+    
   const handleSubmit = (e: React.SyntheticEvent) => {
     e.preventDefault();
 
@@ -20,5 +21,5 @@ export const useTodos = () => {
     (document.getElementById('NewTodo') as HTMLInputElement).value = '';
   };
 
-  return { todos, updateTodos, handleSubmit };
+  return { todos, updateTodos, handleSubmit, clearComplete };
 };
