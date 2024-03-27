@@ -1,35 +1,36 @@
 import { useTodos } from "../hooks/useTodos";
-
+import { Filters } from "../interface";
 
 interface Props {
   className?: string;
+  callback: (filter: Filters) => void;
+  filter: Filters;
 }
 function Filters(props: Props) {
-  const { className } = props;
-  const { handleFilter  } = useTodos()
+  const { className, callback, filter } = props;
   return (
-    <div className={`gap-x-4 ${className}`}>
+    <div className={`gap-x-4  ${className}`}>
       <button
-        onClick={() => {
-          handleFilter('all');
-        }}
-        className='hover:text-secondary'
+        onClick={() => callback("all")}
+        className={`hover:text-secondary dark:hover:text-primary ${
+          filter == "all" && "text-primary"
+        } `}
       >
         All
       </button>
       <button
-        onClick={() => {
-          handleFilter('active');
-        }}
-        className='hover:text-secondary'
+        onClick={() => callback("active")}
+        className={`hover:text-secondary dark:hover:text-primary ${
+          filter == "active" && "text-primary"
+        } `}
       >
         Active
       </button>
       <button
-        onClick={() => {
-          handleFilter('complete');
-        }}
-        className='hover:text-secondary'
+        onClick={() => callback("complete")}
+        className={`hover:text-secondary dark:hover:text-primary ${
+          filter == "complete" && "text-primary"
+        } `}
       >
         Complete
       </button>
@@ -37,4 +38,4 @@ function Filters(props: Props) {
   );
 }
 
-export default Filters
+export default Filters;
