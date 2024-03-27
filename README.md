@@ -186,7 +186,7 @@ const [parent, list, setList] = useDragAndDrop<HTMLUListElement, ITodo>(
 Clone the project
 
 ```bash
-  git clone git@github.com:emanuel-ra/E-commerce-product-page---Astro.git
+  git git@github.com:emanuel-ra/Todo-app.git
 ```
 
 Go to the project directory
