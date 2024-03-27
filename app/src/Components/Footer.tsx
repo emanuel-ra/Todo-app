@@ -16,7 +16,7 @@ function Footer() {
       <a
         target="_blank"
         rel="noopener"
-        href="www.linkedin.com/in/emanuelramirezabarca
+        href="https://www.linkedin.com/in/emanuelramirezabarca
 
 "
         className="hover:text-primary"
