@@ -1,10 +1,9 @@
-import { useTodos } from "../hooks/useTodos";
-import { Filters } from "../interface";
+import { Filters as IFilters } from "../interface";
 
 interface Props {
   className?: string;
-  callback: (filter: Filters) => void;
-  filter: Filters;
+  callback: (filter: IFilters) => void;
+  filter: IFilters;
 }
 function Filters(props: Props) {
   const { className, callback, filter } = props;

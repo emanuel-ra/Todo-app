@@ -1,4 +1,3 @@
-import { useMemo, useState } from 'react';
 
 import { useTodoStore } from '../stores/TodoStore';
 
