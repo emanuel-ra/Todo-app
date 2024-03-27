@@ -22,27 +22,25 @@ import './App.css';
 function App() { 
 
   const { mode, handleMode } = useMode()
-  const { handleSubmit , todos, updateTodos} = useTodos() 
+  const { handleSubmit, todos, updateTodos } = useTodos(); 
 
   // * DRAG AND DROP PLUGIN
-  const dragHandlerPlugin: DNDPlugin = (parent) => {
-    const parentData = parents.get(parent);
+  const dragHandlerPlugin: DNDPlugin = (parent) => {     
+    const parentData = parents.get(parent);  
     if (!parentData) return;
 
     function dragend() {     
       const items = (document.getElementsByClassName('todoItem') as HTMLCollectionOf<HTMLLIElement>)
-      const todos = Array.from(items).map(item => item)
+      const list = Array.from(items).map(item => item)
       const NewTodos: ITodo[] = [];
-      todos.map(li => {
-        
+      list.map((li) => {
         const TODO: ITodo = {
           id: li.dataset.id as string,
           todo: li.dataset.todo as string,
-          status: li.dataset.status as Status ,
+          status: li.dataset.status as Status,
         };
-        NewTodos.push(TODO);        
-      })
-
+        NewTodos.push(TODO);
+      });
       updateTodos({ todos: NewTodos });
     }
 
@@ -66,6 +64,7 @@ function App() {
 
   // * INIT DRAG AND DROP
   const [parent, list, setList] = useDragAndDrop<HTMLUListElement, ITodo>(todos, {
+    draggable:(el) => { return el.id !== 'no-drag'; } ,
     plugins: [animations(), dragHandlerPlugin],
   });
 
@@ -109,6 +108,7 @@ function App() {
               {list?.map((todo) => (
                 <Todo key={todo.id} todo={todo} />
               ))}
+              
               <CardFooter>
                 <Counter />
                 <Filters className='hidden md:flex ' />
