@@ -1,6 +1,6 @@
 function Footer() {
   return (
-    <div className="absolute bottom-2 text-secondary dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out">
+    <div className="absolute bottom-2 text-secondary dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out text-center">
       Challenge by{" "}
       <a
         href="https://www.frontendmentor.io?ref=challenge"
@@ -10,7 +10,7 @@ function Footer() {
       >
         Frontend Mentor
       </a>
-      . Coded by{" "}
+      .<br className="md:hidden" /> Coded by{" "}
       <a
         target="_blank"
         rel="noopener"
