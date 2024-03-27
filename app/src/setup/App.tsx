@@ -19,6 +19,7 @@ import { useTodos } from "../hooks/useTodos";
 import { Todo as ITodo, Status } from "../interface";
 import type { Filters as IFilters } from "../interface";
 import "./App.css";
+import Footer from "../Components/Footer";
 
 function App() {
   const [filter, setFilter] = useState<IFilters>("all");
@@ -151,6 +152,7 @@ function App() {
             </div>
           </div>
         </main>
+        <Footer />
       </div>
     </Mode>
   );
