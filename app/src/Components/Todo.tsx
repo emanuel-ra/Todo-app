@@ -22,7 +22,7 @@ function Todo(props: Props) {
 
   return (
     <li
-      className={`flex border-b-2 dakr:border-very-dark-grayish-blue justify-between px-4 group cursor-pointer todoItem
+      className={`flex border-b-2 dark:border-very-dark-grayish-blue justify-between px-4 group cursor-pointer todoItem
       ${
         isChecked
           ? "text-light-grayish-blue dark:text-very-dark-grayish-blue"
