@@ -1,9 +1,9 @@
 function Footer() {
   return (
-    <div className='bottom-2 text-very-dark-grayish-blue dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out text-center'>
+    <div className='bottom-2 text-very-dark-grayish-blue dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out text-center animate-flip-down animate-once animate-duration-1000'>
       Challenge by{' '}
       <a
-        aria-labelledby="Link to Frontend Mentor Challenge"
+        aria-labelledby='Link to Frontend Mentor Challenge'
         href='https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW'
         target='_blank'
         rel='noopener'

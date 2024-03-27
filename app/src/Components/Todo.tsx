@@ -5,9 +5,11 @@ import RadioInput from "./RadioInput";
 
 interface Props {
   todo: ITodo;
+  className?:string
 }
 function Todo(props: Props) {
   const { id, todo, status } = props.todo;
+  const { className  } = props;
   const updateStatus = useTodoStore((state) => state.updateStatus);
   const deleteTodo = useTodoStore((state) => state.deleteTodo);
   const handleBehavior = () => {
@@ -28,6 +30,7 @@ function Todo(props: Props) {
           ? 'text-light-grayish-blue dark:text-very-dark-grayish-blue'
           : 'text-very-dark-grayish-blue dark:text-light-grayish-blue'
       }
+      ${className}
       `}
       data-id={id}
       data-todo={todo}

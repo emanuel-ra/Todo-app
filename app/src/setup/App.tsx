@@ -101,16 +101,15 @@ function App() {
           <div className='w-full absolute flex flex-col items-center justify-center mt-10 md:mt-16 lg:mt-28 '>
             <div className='w-3/4 lg:w-1/2 flex justify-between'>
               <h1
-                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em]
-'
+                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em] animate-flip-down animate-once animate-duration-1000'
               >
                 TODO
               </h1>
               <button
-                role="button"
+                role='button'
                 className='px-4 py-2'
                 onClick={handleMode}
-                aria-labelledby="Toggle dark and light mode button"
+                aria-labelledby='Toggle dark and light mode button'
               >
                 {mode == 'light' ? (
                   <MoonIcon className='animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
@@ -129,8 +128,14 @@ function App() {
             </form>
 
             <Card reference={parent}>
-              {list?.map((todo) => (
-                <Todo key={todo.id} todo={todo} />
+              {list?.map((todo, index) => (
+                <Todo
+                  key={todo.id}
+                  todo={todo}
+                  className={`${
+                    index % 2 === 0 ? 'animate-fade-left' : 'animate-fade-right'
+                  } animate-once animate-duration-1000`}
+                />
               ))}
 
               <CardFooter>
@@ -152,7 +157,7 @@ function App() {
               />
             </div>
 
-            <div className='text-sm text-very-dark-grayish-blue dark:dark:text-light-grayish-blue mb-10'>
+            <div className='text-sm text-very-dark-grayish-blue dark:dark:text-light-grayish-blue mb-10 animate-flip-down animate-once animate-duration-1000'>
               Drag and drop to reorder list
             </div>
             <Footer />

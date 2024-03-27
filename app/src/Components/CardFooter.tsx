@@ -8,7 +8,7 @@ function CardFooter(props: Props) {
   return (
     <li
       id='no-drag'
-      className='flex justify-between items-center px-10 py-4 text-sm text-very-dark-grayish-blue dark:text-light-grayish-blue font-semibold'
+      className='flex justify-between items-center px-10 py-4 text-sm text-very-dark-grayish-blue dark:text-light-grayish-blue font-semibold animate-flip-down animate-once animate-duration-1000'
     >
       {children}
     </li>
