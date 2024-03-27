@@ -1,6 +1,7 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 import { Status, Todo } from '../interface';
+import { data } from '../setup/data';
 
 interface TodoState {
   todos: Todo[];
@@ -15,7 +16,7 @@ export const useTodoStore = create<TodoState>()(
   persist(
     (set, get) => {
       return {
-        todos: [],
+        todos: data,
         addTodo: ({ todo, status }: { todo: string; status: Status }) => {
           const { todos } = get();
 
