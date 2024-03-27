@@ -1,5 +1,3 @@
-import React from "react";
-
 function Footer() {
   return (
     <div className="absolute bottom-2 text-secondary dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out">
