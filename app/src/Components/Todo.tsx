@@ -41,7 +41,6 @@ function Todo(props: Props) {
         <span className={`${isChecked ? 'line-through' : ''}`}>{todo}</span>
       </div>
       <button
-        role='button'
         aria-label='Delete todo button'
         className='hidden group-hover:flex px-4 py-2 items-center'
         onClick={handleDelete}
