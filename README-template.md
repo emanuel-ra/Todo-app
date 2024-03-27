@@ -1,6 +1,6 @@
-# Frontend Mentor - Todo app solution
+# Frontend Mentor - Todo app solution 🐱‍🏍
 
-This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW). Frontend Mentor challenges help you improve your coding skills by building realistic projects. 
+This is a solution to the [Todo app challenge on Frontend Mentor](https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW). Frontend Mentor challenges help you improve your coding skills by building realistic projects.
 
 ## Table of contents
 
@@ -11,10 +11,8 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 - [My process](#my-process)
   - [Built with](#built-with)
   - [What I learned](#what-i-learned)
-  - [Continued development](#continued-development)
-  - [Useful resources](#useful-resources)
 - [Author](#author)
-- [Acknowledgments](#acknowledgments)
+- [Run Locally](#run-locally)
 
 **Note: Delete this note and update the table of contents based on what sections you keep.**
 
@@ -24,95 +22,187 @@ This is a solution to the [Todo app challenge on Frontend Mentor](https://www.fr
 
 Users should be able to:
 
-- View the optimal layout for the app depending on their device's screen size
-- See hover states for all interactive elements on the page
-- Add new todos to the list
-- Mark todos as complete
-- Delete todos from the list
-- Filter by all/active/complete todos
-- Clear all completed todos
-- Toggle light and dark mode
-- **Bonus**: Drag and drop to reorder items on the list
+- [x] View the optimal layout for the app depending on their device's screen size
+- [x] See hover states for all interactive elements on the page
+- [x] Add new todos to the list
+- [x] Mark todos as complete
+- [x] Delete todos from the list
+- [x] Filter by all/active/complete todos
+- [x] Clear all completed todos
+- [x] Toggle light and dark mode
+- [x] **Bonus**: Drag and drop to reorder items on the list
 
 ### Screenshot
 
-![](./screenshot.jpg)
-
-Add a screenshot of your solution. The easiest way to do this is to use Firefox to view your project, right-click the page and select "Take a Screenshot". You can choose either a full-height screenshot or a cropped one based on how long the page is. If it's very long, it might be best to crop it.
-
-Alternatively, you can use a tool like [FireShot](https://getfireshot.com/) to take the screenshot. FireShot has a free option, so you don't need to purchase it. 
-
-Then crop/optimize/edit your image however you like, add it to your project, and update the file path in the image above.
-
-**Note: Delete this note and the paragraphs above when you add your screenshot. If you prefer not to add a screenshot, feel free to remove this entire section.**
+![](./dark-desktop.png)
+![](./ligh-dektop.png)
+![](./iphones.png)
 
 ### Links
 
-- Solution URL: [Add solution URL here](https://your-solution-url.com)
-- Live Site URL: [Add live site URL here](https://your-live-site-url.com)
+- Live Site URL: [netlify](https://emanuelra-todo-app.netlify.app/)
 
 ## My process
 
 ### Built with
 
 - Semantic HTML5 markup
-- CSS custom properties
 - Flexbox
-- CSS Grid
-- Mobile-first workflow
 - [React](https://reactjs.org/) - JS library
-- [Next.js](https://nextjs.org/) - React framework
-- [Styled Components](https://styled-components.com/) - For styles
-
-**Note: These are just examples. Delete this note and replace the list above with your own choices**
+- [TypeScript](https://www.typescriptlang.org/) - Typed programming language
+- [Tailwindcss](https://tailwindcss.com/) - For styles
+- [Zustand](https://zustand-demo.pmnd.rs/) - State management
+- [Drag and Drop](https://drag-and-drop.formkit.com/) - JavaScript library
+- [ViteJs](https://vitejs.dev/) - Build tool
 
 ### What I learned
 
-Use this section to recap over some of your major learnings while working through this project. Writing these out and providing code samples of areas you want to highlight is a great way to reinforce your own knowledge.
+For this challenge i have to lear about drag and drop, for re-order the items on the list
 
-To see how you can add code snippets, see below:
+To handle the state with zustand, i use this code
 
-```html
-<h1>Some HTML code I'm proud of</h1>
-```
-```css
-.proud-of-this-css {
-  color: papayawhip;
-}
-```
 ```js
-const proudOfThisFunc = () => {
-  console.log('🎉')
+interface TodoState {
+  todos: Todo[];
+  addTodo: ({ todo, status }: { todo: string; status: Status }) => void;
+  updateTodos: ({ todos }: { todos: Todo[] }) => void;
+  updateStatus:({todo}:{todo:Todo})=>void
+  deleteTodo: (id:string) => void
+  clearComplete: ()=>void
 }
+
+export const useTodoStore = create<TodoState>()(
+  persist(
+    (set, get) => {
+      return {
+        todos: data,
+        addTodo: ({ todo, status }: { todo: string; status: Status }) => {
+          const { todos } = get();
+
+          const clone = structuredClone(todos);
+
+          const newTodo: Todo = {
+            id: self.crypto.randomUUID(),
+            todo: todo,
+            status: status,
+          };
+
+          clone.push(newTodo);
+
+          set({ todos: clone });
+        },
+        updateTodos: ({ todos }: { todos: Todo[] }) => {
+          set({ todos });
+        },
+        updateStatus: ({ todo }: { todo: Todo }) => {
+          const { todos } = get();
+          const index = todos.findIndex((item) => item.id === todo.id);
+          const clone = structuredClone(todos);
+
+          clone[index].status =
+            todo.status === 'active' ? 'complete' : 'active';
+
+          set({ todos: clone });
+        },
+        deleteTodo: (id: string) => {
+          const { todos } = get();
+          const newTodos = todos.filter((todo) => todo.id !== id);
+          set({ todos: newTodos });
+        },
+        clearComplete:()=>{
+          const { todos } = get()
+          const newTodos = todos.filter(todo => todo.status === 'active')
+          set({todos:newTodos})
+        }
+      };
+    },
+    { name: 'FRONTEND::MENTOR::TODO:LIST' }
+  )
+);
 ```
 
-If you want more help with writing markdown, we'd recommend checking out [The Markdown Guide](https://www.markdownguide.org/) to learn more.
+To change the order of the list with drag and drop i use this code
 
-**Note: Delete this note and the content within this section and replace with your own learnings.**
+```js
 
-### Continued development
+const dragHandlerPlugin: DNDPlugin = (parent) => {
+  const parentData = parents.get(parent);
+  if (!parentData) return;
 
-Use this section to outline areas that you want to continue focusing on in future projects. These could be concepts you're still not completely comfortable with or techniques you found useful that you want to refine and perfect.
+  function dragend() {
+    const items = document.getElementsByClassName(
+      "todoItem"
+    ) as HTMLCollectionOf<HTMLLIElement>;
+    const list = Array.from(items).map((item) => item);
+    const NewTodos: ITodo[] = [];
+    list.map((li) => {
+      const TODO: ITodo = {
+        id: li.dataset.id as string,
+        todo: li.dataset.todo as string,
+        status: li.dataset.status as Status,
+      };
+      NewTodos.push(TODO);
+    });
+    updateTodos({ todos: NewTodos });
+  }
 
-**Note: Delete this note and the content within this section and replace with your own plans for continued development.**
+  return {
+    setup() {},
+    teardown() {},
+    setupNode(data) {
+      data.nodeData.abortControllers.customPlugin = addEvents(data.node, {
+        dragend: dragend,
+      });
+    },
+    tearDownNode(data) {
+      if (data.nodeData?.abortControllers?.customPlugin) {
+        data.nodeData?.abortControllers?.customPlugin.abort();
+      }
+    },
+    setupNodeRemap() {},
+    tearDownNodeRemap() {},
+  };
+};
 
-### Useful resources
-
-- [Example resource 1](https://www.example.com) - This helped me for XYZ reason. I really liked this pattern and will use it going forward.
-- [Example resource 2](https://www.example.com) - This is an amazing article which helped me finally understand XYZ. I'd recommend it to anyone still learning this concept.
-
-**Note: Delete this note and replace the list above with resources that helped you during the challenge. These could come in handy for anyone viewing your solution or for yourself when you look back on this project in the future.**
+const [parent, list, setList] = useDragAndDrop<HTMLUListElement, ITodo>(
+  todos,
+  {
+    draggable: (el) => {
+      return el.id !== "no-drag";
+    },
+    plugins: [animations(), dragHandlerPlugin],
+  }
+);
+```
 
 ## Author
 
-- Website - [Add your name here](https://www.your-site.com)
-- Frontend Mentor - [@yourusername](https://www.frontendmentor.io/profile/yourusername)
-- Twitter - [@yourusername](https://www.twitter.com/yourusername)
+- Github - [emanuel-ra](https://github.com/emanuel-ra/)
+- Frontend Mentor - [@emanuel-ra](https://www.frontendmentor.io/profile/emanuel-ra)
+- Linkedin - [@emanuelramirezabarca](https://www.linkedin.com/in/emanuelramirezabarca/)
 
-**Note: Delete this note and add/remove/edit lines above based on what links you'd like to share.**
+## Run Locally
 
-## Acknowledgments
+Clone the project
 
-This is where you can give a hat tip to anyone who helped you out on this project. Perhaps you worked in a team or got some inspiration from someone else's solution. This is the perfect place to give them some credit.
+```bash
+  git clone git@github.com:emanuel-ra/E-commerce-product-page---Astro.git
+```
 
-**Note: Delete this note and edit this section's content as necessary. If you completed this challenge by yourself, feel free to delete this section entirely.**
+Go to the project directory
+
+```bash
+  cd app
+```
+
+Install dependencies
+
+```bash
+pnpm install
+```
+
+Start the server
+
+```bash
+pnpm run dev
+```
