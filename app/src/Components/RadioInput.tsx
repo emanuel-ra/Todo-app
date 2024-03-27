@@ -18,7 +18,7 @@ function RadioInput(props:Props) {
   return (
     <div className='px-4 py-4 group'>
       <label
-        role='checkbox'
+        aria-label="done todo"
         htmlFor={id}
         aria-labelledby={id}
         className='size-6 flex justify-center items-center border-2  dark:border-primary bg-transparent p-1 rounded-full cursor-pointer          

@@ -100,9 +100,7 @@ function App() {
           <Banner />
           <div className='w-full absolute flex flex-col items-center justify-center mt-10 md:mt-16 lg:mt-28 '>
             <div className='w-3/4 lg:w-1/2 flex justify-between'>
-              <h1
-                className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em] animate-flip-down animate-once animate-duration-1000'
-              >
+              <h1 className='text-2xl lg:text-4xl font-bold text-white tracking-[.4em] lg:tracking-[.5em] animate-flip-down animate-once animate-duration-1000'>
                 TODO
               </h1>
               <button
@@ -116,6 +114,7 @@ function App() {
                 ) : (
                   <SunIcon className='animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
                 )}
+                <span className='sr-only'>Turn dark & light mode</span>
               </button>
             </div>
 
