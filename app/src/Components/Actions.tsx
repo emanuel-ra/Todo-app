@@ -5,8 +5,7 @@ function Actions() {
   return (
     <div className='flex text-sm'>
       <button
-        role="button"
-        aria-labelledby='Remove complete todos'
+        aria-label='Remove complete todos'
         onClick={clearComplete}
       >
         Clear Completed

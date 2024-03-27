@@ -8,7 +8,7 @@ function InputText(props:Props) {
     return (
       <div className='h-full w-full '>
         <input
-          aria-labelledby={placeholder}
+          aria-label={placeholder}
           type='text'
           id={id}
           className='h-full w-full bg-transparent outline-none ring-transparent text-dark-grayish-blue tracking-wide'

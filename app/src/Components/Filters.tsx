@@ -10,8 +10,7 @@ function Filters(props: Props) {
   return (
     <div className={`gap-x-4  ${className}`}>
       <button
-        role='button'
-        aria-labelledby='Show all todos'
+        aria-label='Show all todos'
         onClick={() => callback('all')}
         className={`hover:text-secondary dark:hover:text-primary ${
           filter == 'all' && 'text-primary'
@@ -20,8 +19,7 @@ function Filters(props: Props) {
         All
       </button>
       <button
-        role='button'
-        aria-labelledby='Filter by active todos'
+        aria-label='Filter by active todos'
         onClick={() => callback('active')}
         className={`hover:text-secondary dark:hover:text-primary ${
           filter == 'active' && 'text-primary'
@@ -30,8 +28,7 @@ function Filters(props: Props) {
         Active
       </button>
       <button
-        role='button'
-        aria-labelledby='Filter by complete todos'
+        aria-label='Filter by complete todos'
         onClick={() => callback('complete')}
         className={`hover:text-secondary dark:hover:text-primary ${
           filter == 'complete' && 'text-primary'
