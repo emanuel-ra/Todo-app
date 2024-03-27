@@ -22,7 +22,7 @@ import './App.css';
 function App() { 
 
   const { mode, handleMode } = useMode()
-  const { handleSubmit, todos, updateTodos } = useTodos(); 
+  const { handleSubmit, todos, updateTodos, filter } = useTodos(); 
 
   // * DRAG AND DROP PLUGIN
   const dragHandlerPlugin: DNDPlugin = (parent) => {     
@@ -70,10 +70,14 @@ function App() {
 
 
   // * This update the drag and drop list
-  useEffect(() => {
+  useEffect(() => {      
     setList(todos);
   },[todos]);
-  
+
+  useEffect(() => {
+    console.log(filter);
+    setList(todos);
+  }, [filter]);
   return (
     <Mode>
       <div className='wrapper'>
