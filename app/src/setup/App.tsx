@@ -106,7 +106,12 @@ function App() {
               >
                 TODO
               </h1>
-              <button className='px-4 py-2' onClick={handleMode}>
+              <button
+                role="button"
+                className='px-4 py-2'
+                onClick={handleMode}
+                aria-labelledby="Toggle dark and light mode button"
+              >
                 {mode == 'light' ? (
                   <MoonIcon className='animate-fade-down animate-once animate-duration-1000 animate-ease-in-out animate-fill-forwards' />
                 ) : (

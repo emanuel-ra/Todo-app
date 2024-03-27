@@ -25,20 +25,22 @@ function Todo(props: Props) {
       className={`flex border-b-2 dark:border-very-dark-grayish-blue justify-between px-4 group cursor-pointer todoItem
       ${
         isChecked
-          ? "text-light-grayish-blue dark:text-very-dark-grayish-blue"
-          : "text-very-dark-grayish-blue dark:text-light-grayish-blue"
+          ? 'text-light-grayish-blue dark:text-very-dark-grayish-blue'
+          : 'text-very-dark-grayish-blue dark:text-light-grayish-blue'
       }
       `}
       data-id={id}
       data-todo={todo}
       data-status={status}
     >
-      <div className="flex items-center">
+      <div className='flex items-center'>
         <RadioInput callback={handleBehavior} isChecked={isChecked} />
-        <span className={`${isChecked ? "line-through" : ""}`}>{todo}</span>
+        <span className={`${isChecked ? 'line-through' : ''}`}>{todo}</span>
       </div>
       <button
-        className="hidden group-hover:flex px-4 py-2 items-center"
+        role='button'
+        aria-label='Delete todo button'
+        className='hidden group-hover:flex px-4 py-2 items-center'
         onClick={handleDelete}
       >
         <CrossIcon />

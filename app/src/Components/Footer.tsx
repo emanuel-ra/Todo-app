@@ -3,6 +3,7 @@ function Footer() {
     <div className='bottom-2 text-very-dark-grayish-blue dark:text-light-grayish-blue tracking-wide transition delay-500 ease-in-out text-center'>
       Challenge by{' '}
       <a
+        aria-labelledby="Link to Frontend Mentor Challenge"
         href='https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW'
         target='_blank'
         rel='noopener'
@@ -12,6 +13,7 @@ function Footer() {
       </a>
       .<br className='md:hidden' /> Coded by{' '}
       <a
+        aria-labelledby='Link to Tomas Emanuel Ramirez Abarca LinkedIn'
         target='_blank'
         rel='noopener'
         href='https://www.linkedin.com/in/emanuelramirezabarca

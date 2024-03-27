@@ -34,9 +34,9 @@ Users should be able to:
 
 ### Screenshot
 
-![](./dark-desktop.png)
-![](./ligh-dektop.png)
-![](./iphones.png)
+![Todo App desktop dark mode](./dark-desktop.png)
+![Todo App desktop light mode](./ligh-dektop.png)
+![Todo App mobile dark & light mode](./iphones.png)
 
 ### Links
 

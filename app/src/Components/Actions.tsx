@@ -4,7 +4,13 @@ function Actions() {
   const { clearComplete  } = useTodos()
   return (
     <div className='flex text-sm'>
-      <button onClick={clearComplete}>Clear Completed</button>
+      <button
+        role="button"
+        aria-labelledby='Remove complete todos'
+        onClick={clearComplete}
+      >
+        Clear Completed
+      </button>
     </div>
   );
 }

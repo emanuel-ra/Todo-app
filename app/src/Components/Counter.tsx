@@ -6,7 +6,7 @@ function Counter() {
 
     const count = todos.filter(todo => todo.status === 'active').length
 
-  return <div className="">{count} items left</div>;
+  return <div>{count} items left</div>;
 }
 
 export default Counter
